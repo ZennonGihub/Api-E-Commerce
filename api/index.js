@@ -6,16 +6,27 @@ const cors = require('cors')
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 
 const app = express();
-const port = 3000;
+const port =  process.env.PORT || 3000;
 
 app.use(express.json())
-const array = ['http://127.0.0.1:5500']
-app.use(cors());
 
+const whitelist = ['http://127.0.0.1:5500']
+const options = {
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('no permitido'));
+    }
+  }
+}
+
+app.use(cors(options));
 //Definir una ruta
-app.get('/San-Luis', (req, res) => {
-    res.json('Hello world')
-})
+
+app.get('/api', (req, res) => {
+    res.json('Esta es mi primera api')
+});
 
 routerApi(app);
 
