@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=E-COMMERCE
+      - POSTGRES_USER=Zennon
+      - POSTGRES_PASSWORD=102426
+    ports:
+      - "5432:5432"
+    volumens:
+      - ./postgres_data:/var/lib/postgres/data
