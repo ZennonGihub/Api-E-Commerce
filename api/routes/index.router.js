@@ -1,8 +1,8 @@
 const express = require('express')
 
 const productsRouter = require('./products');
-const informacionRouter = require('./informacion')
-const usuarioRouter = require('./usuarios');
+const informacionRouter = require('./informacion.ruta')
+const usuarioRouter = require('./usuarios.ruta');
 
 function routerApi(app) {
   const router = express.Router();

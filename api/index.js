@@ -1,6 +1,6 @@
 //Traer y utilizar express
 const express = require('express')
-const routerApi = require('./routes');
+const routerApi = require('./routes/index.router');
 const cors = require('cors')
 
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
@@ -19,13 +19,13 @@ const options = {
       callback(new Error('no permitido'));
     }
   }
-}
+} 
 
 app.use(cors(options));
 //Definir una ruta
 
 app.get('/api', (req, res) => {
-    res.json('Esta es mi primera api')
+    res.send('Esta funcionando')
 });
 
 routerApi(app);

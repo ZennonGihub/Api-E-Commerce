@@ -1,4 +1,3 @@
-version: "3.8"
 
 services:
   postgres:
@@ -9,5 +8,5 @@ services:
       - POSTGRES_PASSWORD=102426
     ports:
       - "5432:5432"
-    volumens:
-      - ./postgres_data:/var/lib/postgres/data
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
