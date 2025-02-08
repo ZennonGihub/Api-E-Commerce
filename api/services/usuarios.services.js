@@ -9,7 +9,7 @@ class UserServices {
 
   generate() {
     const users = 20
-    for(var i = 0; i > users; i++) {
+    for(let i = 0; i < users; i++) {
       this.users.push({
         id: faker.string.uuid(),
         name: faker.string.name(),
@@ -32,10 +32,10 @@ class UserServices {
 
   findOne(id) {
    const user = this.users.find(item => item.id === id)
-    if(!product) {
-       throw boom.notFound ('product not found')
-     } else if (product.isBlock) {
-       throw boom.conflict ('product is block')
+    if(!user) {
+       throw boom.notFound ('usuario no encontrado')
+     } else if (user.isBlock) {
+       throw boom.conflict ('Usuario bloqueado')
      } else {
        return product;
      }
@@ -43,8 +43,8 @@ class UserServices {
 
   uptade(id,  changes) {
     const index = this.users.findIndex(item => item.id === id)
-    if (index = -1) {
-    throw boom.notFound('user not found')
+    if (index === -1) {
+    throw boom.notFound('usuario no encontrado')
     }
     const user = this.users[index]
     this.users[index] = {
@@ -54,7 +54,7 @@ class UserServices {
     return this.users[index]
   }
 
-  delete() {
+  delete(id) {
     const index = this.users.findIndex(item => item.id === id)
     if (index === -1) {
       throw boom.notFound('usuario no encontrado')
