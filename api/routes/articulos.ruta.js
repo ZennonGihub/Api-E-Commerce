@@ -8,15 +8,11 @@ const { createProduct, updateProduct, getProduct } = require('./../schemas/produ
 const router = express.Router();
 const service = new ProductsService();
 
-//Creando una nueva ruta
 router.get('/', async (req, res) => {
   const productos = await service.find();
   res.json(productos)
 });
 
-router.get('/filtro',(req, res)=> {
-  res.send('Yo soy un flitro');
-});
 
 router.get('/:id',
   validatorHandler(getProduct, 'params'),
