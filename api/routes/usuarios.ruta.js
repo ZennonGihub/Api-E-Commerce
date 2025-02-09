@@ -9,14 +9,14 @@ const service = new UserServices();
 
 
 
-router.get('/registter', (req, res) => {
-  res.json([{
-    const { name, gmail, password} = req.body;
-    if (!name || !gmail !! password) {
-      req.status(400).json({ message: 'Campos obligatorios'})
-    }
-  }]
- )
+router.post('/register', (req, res) => {
+  const { name, gmail, password} = req.body;
+  if (!name || !gmail || !password) {
+    res.status(400).json({ message: 'Campos obligatorios'})
+  };
+   res.json({
+   
+  });
 })
 
 router.get('/Login', (req, res) => {
