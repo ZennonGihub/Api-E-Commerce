@@ -1,5 +1,6 @@
 const { faker } = require('@faker-js/faker');
 const boom = require('@hapi/boom')
+const { getConnection } = require('./../libs/postgres')
 
 class UserServices {
   constructor() {
@@ -12,7 +13,7 @@ class UserServices {
     for(let i = 0; i < users; i++) {
       this.users.push({
         id: faker.string.uuid(),
-        name: faker.string.name(),
+        usuario: faker.person.firstName(),
       });
     }
   }
@@ -26,8 +27,10 @@ class UserServices {
     return newUser;
   };
 
-  find() {
-    return this.users;
+   async find() {
+    const client = await getConnection();
+    const rta = await client.query('SELECT * FROM tasks');
+    return rta.rows;
   }
 
   findOne(id) {
@@ -37,7 +40,7 @@ class UserServices {
      } else if (user.isBlock) {
        throw boom.conflict ('Usuario bloqueado')
      } else {
-       return product;
+       return user;
      }
   }
 
