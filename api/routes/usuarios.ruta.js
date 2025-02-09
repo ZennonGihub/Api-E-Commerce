@@ -15,7 +15,7 @@ router.post('/register', (req, res) => {
     res.status(400).json({ message: 'Campos obligatorios'})
   };
    res.json({
-   
+
   });
 })
 
