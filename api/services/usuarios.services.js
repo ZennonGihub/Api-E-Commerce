@@ -27,11 +27,13 @@ class UserServices {
     return newUser;
   };
 
-   async find() {
-    const client = await getConnection();
-    const rta = await client.query('SELECT * FROM tasks');
+  async find() {
+    const client = await getConnection(); // Llama a la función correctamente
+    const rta = await client.query('SELECT * FROM tasks'); // Asegúrate de que la tabla existe
+    client.end(); // Cierra la conexión después de la consulta
     return rta.rows;
   }
+
 
   findOne(id) {
    const user = this.users.find(item => item.id === id)

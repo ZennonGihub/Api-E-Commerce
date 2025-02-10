@@ -6,11 +6,11 @@ async function getConnection() {
     port: '5432',
     user: 'Zennon',
     password: '102426',
-    database: 'E-COOMERCE'
+    database: 'postgres'
   });
 
   await client.connect();
   return client
 };
 
-module.exports = getConnection;
+module.exports = { getConnection };
