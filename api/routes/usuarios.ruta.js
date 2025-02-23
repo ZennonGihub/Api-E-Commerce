@@ -17,8 +17,8 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/register', (req, res) => {
-  const { name, gmail, password} = req.body;
-  if (!name || !gmail || !password) {
+  const { name, password } = req.body;
+  if (!name || !password) {
     res.status(400).json({ message: 'Campos obligatorios'})
   };
    res.json({

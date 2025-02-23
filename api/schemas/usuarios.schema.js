@@ -1,26 +1,32 @@
 const joi = require('joi')
 
 const id = joi.string().uuid();
-const name = joi.string().alphanum().min(3).max(10);
-const fechaDeCreacion = joi.number().integer();
-//const password = joi.password.alphanum()
-
+const userName = joi.string().alphanum().min(3).max(10);
+const password = joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
 
 const createUser = joi.object({
-  name: name.required(),
+  userName: userName.required(),
   id: id.required(),
-  //password: password.required()
+  password: password.required()
 });
 
 const updateUser = joi.object({
-  name: name,
-  id: id,
-  //password: password
+  userName: userName,
+  password: password
 });
 
 const getUser = joi.object({
-  id: id.required()
+  id: id.required(),
+  userName: userName
 });
+
+async function validateUserName(userName) {
+  const user = await User.findOne({ userName }); // Consulta si el usuario ya existe
+  if (user) {
+    throw new Error('Username already exists');
+  }
+}
 
 
 module.exports = { createUser, updateUser, getUser }
+
