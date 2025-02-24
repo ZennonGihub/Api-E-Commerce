@@ -7,9 +7,9 @@ const { createUser, updateUser, getUser } = require('./../schemas/usuarios.schem
 const router = express.Router();
 const service = new UserServices();
 
-router.get('/', async (req, res, next) => {
+router.get('/lista', async (req, res, next) => {
   try {
-    const users = await service.find(); // Aquí estaba el error antes
+    const users = await service.find();
     res.json(users);
   } catch (error) {
     next(error);
@@ -17,8 +17,8 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/register', (req, res) => {
-  const { name, password } = req.body;
-  if (!name || !password) {
+  const { name, password, gmail } = req.body;
+  if (!name || !password || gmail) {
     res.status(400).json({ message: 'Campos obligatorios'})
   };
    res.json({

@@ -2,12 +2,14 @@ const joi = require('joi')
 
 const id = joi.string().uuid();
 const userName = joi.string().alphanum().min(3).max(10);
-const password = joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+const password = joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'));
+const email = joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
 
 const createUser = joi.object({
   userName: userName.required(),
   id: id.required(),
-  password: password.required()
+  password: password.required(),
+  email: email.required()
 });
 
 const updateUser = joi.object({

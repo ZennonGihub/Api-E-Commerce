@@ -19,5 +19,8 @@
     "faker": "^6.6.6",
     "joi": "^17.13.3",
     "pg": "^8.13.1"
+  },
+  "eslintConfig": {
+  "extends": "standard"
   }
 }

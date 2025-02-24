@@ -14,6 +14,7 @@ class UserServices {
       this.users.push({
         id: faker.string.uuid(),
         usuario: faker.person.firstName(),
+        image: faker.image.personPortrait
       });
     }
   }
