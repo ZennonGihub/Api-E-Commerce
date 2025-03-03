@@ -1,11 +1,9 @@
 const { faker } = require('@faker-js/faker');
 const boom = require('@hapi/boom')
-const sequelize = require('../libs/sequelize')
+const { models } = require('../libs/sequelize')
 
 class UserServices {
   constructor() {
-    this.users = [],
-    this.generate();
   }
 
   generate() {
@@ -29,9 +27,8 @@ class UserServices {
   };
 
   async find() {
-    const query = 'SELECT * FROM tasks';
-    const [data] = await sequelize.query(query);
-    return data;
+    const rta = await models.User.findAll();
+    return rta;
   }
 
 
