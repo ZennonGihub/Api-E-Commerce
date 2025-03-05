@@ -12,17 +12,17 @@ const UserSchema = {
   email: {
     allowNull: false,
     type: DataTypes.STRING,
-    unique: true
+    unique: true,
   },
-  passw: {
+  password: {
     allowNull: false,
     type: DataTypes.STRING
   },
-  createAt: {
+  createdAt: {
     allowNull: false,
     type: DataTypes.DATE,
     field: 'create_at',
-    defaultValue: Sequelize.now
+    defaultValue: Sequelize.NOW
   }
 }
 
@@ -30,6 +30,7 @@ class User extends Model {
   static associate() {
     // associate
   }
+
   static config(sequelize) {
     return {
       sequelize,
