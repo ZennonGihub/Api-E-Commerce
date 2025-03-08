@@ -1,34 +1,33 @@
 const joi = require('joi')
 
-const id = joi.string().uuid();
-const userName = joi.string().alphanum().min(3).max(10);
+const id = joi.number().integer();
+const name = joi.string().alphanum().min(3).max(10);
 const password = joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'));
 const email = joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
 
 const createUser = joi.object({
-  userName: userName.required(),
-  id: id.required(),
+  name: name.required(),
   password: password.required(),
   email: email.required()
 });
 
 const updateUser = joi.object({
-  userName: userName,
-  password: password
+  name: name,
+  password: password,
+  email: email
 });
 
 const getUser = joi.object({
-  id: id.required(),
-  userName: userName
+  name: name.required(),
+  email: email
 });
 
-async function validateUserName(userName) {
-  const user = await User.findOne({ userName }); // Consulta si el usuario ya existe
-  if (user) {
-    throw new Error('Username already exists');
-  }
-}
+const deleteUser = joi.object({
+  name: name.required(),
+  password: password.required(),
+  email: email.required()
+})
 
 
-module.exports = { createUser, updateUser, getUser }
+module.exports = { createUser, updateUser, getUser, deleteUser }
 

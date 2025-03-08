@@ -1,8 +1,7 @@
 const express = require('express')
-const { faker } = require('@faker-js/faker')
 const UserServices = require('./../services/usuarios.services')
 const validatorHandler = require('./../middlewares/validator.handler')
-const { createUser, updateUser, getUser } = require('./../schemas/usuarios.schema')
+const { createUser, updateUser, getUser, deleteUser } = require('./../schemas/usuarios.schema')
 
 const router = express.Router();
 const service = new UserServices();
@@ -16,20 +15,44 @@ router.get('/lista', async (req, res, next) => {
   }
 });
 
-router.post('/register', (req, res) => {
-  const { name, password, gmail } = req.body;
-  if (!name || !password || gmail) {
-    res.status(400).json({ message: 'Campos obligatorios'})
-  };
-   res.json({
+router.get('/:id',
+  validatorHandler(getUser, 'params'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const user = await service.findOne(id);
+      res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
-  });
+router.post('/register',
+validatorHandler(createUser, 'body'),
+async (req, res, next) => {
+  try {
+    const body = req.body;
+    const newUser = await service.create(body);
+    res.status(201).json(newUser);
+  } catch (err) {
+    next(err)
+  }
+});
+
+router.get('/Login', async (req, res, next) => {
+    try
+    {
+    const user = await service.findOne()
+    } catch (error) {
+
+    }
 })
 
-router.get('/Login', (req, res) => {
-  res.json([{
+router.delete('borrarCuenta',
+  validatorHandler(deleteUser, 'params')
+)
 
-  }])
-})
+//router.patch()
 
 module.exports = router;
