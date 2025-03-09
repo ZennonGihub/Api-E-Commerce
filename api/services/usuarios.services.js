@@ -17,6 +17,9 @@ class UserServices {
 
 
  async findOne(id) {
+    if (!id) {
+      throw boom.badRequest('El ID proporcionado no es válido');
+    }
     const user = await models.User.findByPk(id);
     if(!user) {
     throw boom.notFound('user not found')
@@ -24,9 +27,9 @@ class UserServices {
     return user;
   }
 
-  async uptade(id,  changes) {
+  async update(id, changes) {
     const user = await this.findOne(id);
-    const rta = await user.uptade(changes);
+    const rta = await user.update(changes);
     return rta;
   }
 

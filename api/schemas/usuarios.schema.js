@@ -18,14 +18,15 @@ const updateUser = joi.object({
 });
 
 const getUser = joi.object({
-  name: name.required(),
+  name: name,
   email: email
 });
 
 const deleteUser = joi.object({
-  name: name.required(),
-  password: password.required(),
-  email: email.required()
+  id: id.required(),
+  name: name,
+  password: password,
+  email: email
 })
 
 
