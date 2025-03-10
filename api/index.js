@@ -3,7 +3,7 @@ const express = require('express')
 const routerApi = require('./routes/index.router');
 const cors = require('cors')
 
-const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
+const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('./middlewares/error.handler');
 
 const app = express();
 const port =  process.env.PORT || 3000;
@@ -31,7 +31,8 @@ app.get('/api', (req, res) => {
 routerApi(app);
 
 app.use(logErrors);
-app.use(boomErrorHandler)
+app.use(ormErrorHandler);
+app.use(boomErrorHandler);
 app.use(errorHandler);
 
 //Tenemos que hacer que el sv 'escuche'

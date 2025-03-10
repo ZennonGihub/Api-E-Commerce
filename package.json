@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon api/index.js",
     "start": "nodemon api/index.js",
-    "lint": "eslint"
+    "lint": "eslint",
+    "migrations:generate": "sequelize-cli migration:generate --name"
   },
   "keywords": [],
   "author": "",
@@ -25,5 +26,8 @@
   },
   "eslintConfig": {
     "extends": "standard"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.2"
   }
 }
