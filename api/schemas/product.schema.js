@@ -4,7 +4,6 @@ const id = joi.string().uuid();
 const name = joi.string().alphanum().min(3).max(10);
 const price = joi.number().integer();
 
-
 const createProduct = joi.object({
   name: name.required(),
   price: price.required()
