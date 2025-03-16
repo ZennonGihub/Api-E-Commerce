@@ -29,3 +29,5 @@ router.post('/',
     next(error)
   }
 });
+
+module.exports = router;

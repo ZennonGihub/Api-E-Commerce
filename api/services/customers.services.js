@@ -6,49 +6,45 @@ class CustomerService {
   }
 
   async create(data) {
-    const newUser = await models.User.create(data.user);
-    const newCustomer = await models.Customer.create({
-      ...data,
-      userId: newUser.id
+    const newCustomer = await models.Customer.create(data, {
+      include: [{
+        model: models.User,
+        as: 'user'
+      }]
     });
-  const customerWithUser = await models.Customer.findByPk(newCustomer.id, {
-    include: ['user']
-  });
-  return customerWithUser;
-}
+    return newCustomer;
+  }
 
   async find() {
     const customer = await models.Customer.findAll({
-      include: {
+      include: [{
         model: models.User,
         as: 'user'
-      }
+      }]
     });
     return customer;
   }
 
 
- async findOne(id) {
-    if (!id) {
-      throw boom.badRequest('El ID proporcionado no es válido');
+  async findOne(id) {
+    const user = await models.Customer.findByPk(id);
+    if (!user) {
+      throw boom.notFound('customer not found');
     }
-    const customer = await models.Customer.findByPk(id);
-    if(!customer) {
-    throw boom.notFound('Customer not found')
-    }
-    return customer;
+    return user;
   }
 
   async update(id, changes) {
-    const customer = await this.findOne(id);
-    const rta = await customer.update(changes);
+    const model = await this.findOne(id);
+    const rta = await model.update(changes);
     return rta;
   }
 
   async delete(id) {
-    const customer = await this.findOne(id);
-    await customer.destroy()
+    const model = await this.findOne(id);
+    await model.destroy();
     return { rta: true };
-}
+  }
+
 }
 module.exports = CustomerService;
