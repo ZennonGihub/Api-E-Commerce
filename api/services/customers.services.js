@@ -6,12 +6,25 @@ class CustomerService {
   }
 
   async create(data) {
-    return data
-  };
+    const newUser = await models.User.create(data.user);
+    const newCustomer = await models.Customer.create({
+      ...data,
+      userId: newUser.id
+    });
+  const customerWithUser = await models.Customer.findByPk(newCustomer.id, {
+    include: ['user']
+  });
+  return customerWithUser;
+}
 
   async find() {
-    const user = await models.Customer.findAll();
-    return rta;
+    const customer = await models.Customer.findAll({
+      include: {
+        model: models.User,
+        as: 'user'
+      }
+    });
+    return customer;
   }
 
 
@@ -19,22 +32,22 @@ class CustomerService {
     if (!id) {
       throw boom.badRequest('El ID proporcionado no es válido');
     }
-    const user = await models.Customer.findByPk(id);
-    if(!user) {
+    const customer = await models.Customer.findByPk(id);
+    if(!customer) {
     throw boom.notFound('Customer not found')
     }
-    return user;
+    return customer;
   }
 
   async update(id, changes) {
-    const user = await this.findOne(id);
-    const rta = await user.update(changes);
+    const customer = await this.findOne(id);
+    const rta = await customer.update(changes);
     return rta;
   }
 
   async delete(id) {
-    const user = await this.findOne(id);
-    await user.destroy()
+    const customer = await this.findOne(id);
+    await customer.destroy()
     return { rta: true };
 }
 }

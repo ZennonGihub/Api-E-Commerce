@@ -1,11 +1,8 @@
-const { allow, extend } = require('joi');
-const { types } = require('pg');
 const { Model, DataTypes, Sequelize} = require('sequelize');
-const sequelize = require('../../libs/sequelize');
 
 const CUSTOMER_TABLE = 'customers';
 
-const customerSchema = {
+const CustomerSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -25,27 +22,44 @@ const customerSchema = {
     allowNull: true,
     type: DataTypes.STRING
   },
-  createAt: {
+  createdAt: {
     allowNull: false,
     type: DataTypes.DATE,
     field: 'create_at',
-    defaultValue: sequelize.NOW
+    defaultValue: Sequelize.NOW
+  },
+  userId: {
+    field: 'user_id',
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    unique: true,
+    references: {
+      model: 'users',
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   }
 }
 
-class Customers extends Model {
-  static associations(models){
-    this.belongsTo(models.User, {as:'user'});
+class Customer extends Model {
+
+  static associate(models) {
+    this.belongsTo(models.User, {as: 'user'});
+    this.hasMany(models.User, {
+      as: 'orders',
+      foreignKey: 'customerId'
+    });
   }
   static config(sequelize) {
     return {
       sequelize,
       tableName: CUSTOMER_TABLE,
-      ModelName: 'customer',
+      modelName: 'Customer',
       timestamps: false
     }
     }
 }
 
 
-module.exports = { Customers, CUSTOMER_TABLE, customerSchema}
+module.exports = { Customer, CUSTOMER_TABLE, CustomerSchema}
