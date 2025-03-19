@@ -2,6 +2,7 @@
 const express = require('express')
 const routerApi = require('./routes/index.router');
 const cors = require('cors')
+const {checkApiKey} = require('./middlewares/auth.handler')
 
 const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('./middlewares/error.handler');
 
@@ -24,7 +25,7 @@ const options = {
 app.use(cors(options));
 //Definir una ruta
 
-app.get('/api', (req, res) => {
+app.get('/api', checkApiKey, (req, res) => {
     res.send('Esta funcionando')
 });
 
