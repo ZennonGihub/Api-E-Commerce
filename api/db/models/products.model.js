@@ -9,7 +9,7 @@ const ProductSchema = {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
   },
   name: {
     type: DataTypes.STRING,
@@ -39,18 +39,16 @@ const ProductSchema = {
     type: DataTypes.INTEGER,
     references: {
       model: CATEGORY_TABLE,
-      key: 'id'
+      key: 'id',
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
-  }
-}
-
+    onDelete: 'RESTRICT', // Impide eliminar la categoria si hay productos en ella
+  },
+};
 
 class Product extends Model {
-
   static associate(models) {
-    this.belongsTo(models.Category, { as: 'category' });
+    this.belongsTo(models.Category, { as: 'Category' });
   }
 
   static config(sequelize) {
@@ -58,8 +56,8 @@ class Product extends Model {
       sequelize,
       tableName: PRODUCT_TABLE,
       modelName: 'Product',
-      timestamps: false
-    }
+      timestamps: false,
+    };
   }
 }
 

@@ -1,7 +1,6 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 const { CUSTOMER_TABLE } = require('./../models/customer.model');
 
-
 const ORDER_TABLE = 'orders';
 
 const OrderSchema = {
@@ -9,7 +8,7 @@ const OrderSchema = {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
   },
   customerId: {
     field: 'customer_id',
@@ -17,10 +16,10 @@ const OrderSchema = {
     type: DataTypes.INTEGER,
     references: {
       model: CUSTOMER_TABLE,
-      key: 'id'
+      key: 'id',
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE',
   },
   createdAt: {
     allowNull: false,
@@ -31,28 +30,26 @@ const OrderSchema = {
   total: {
     type: DataTypes.VIRTUAL,
     get() {
-      if(this.items.length > 0) {
+      if (this.items.length > 0) {
         return this.items.reduce((total, item) => {
-          return total + (item.price * item.OrderProduct.amount)
-        },0)
+          return total + item.price * item.OrderProduct.amount;
+        }, 0);
       }
-      return 0
-    }
-  }
-}
-
+      return 0;
+    },
+  },
+};
 
 class Order extends Model {
-
   static associate(models) {
     this.belongsTo(models.Customer, {
-      as: 'customer'
+      as: 'customer',
     });
     this.belongsToMany(models.Product, {
       as: 'items',
       through: models.OrderProduct,
       foreignKey: 'orderId',
-      otherKey: 'productId'
+      otherKey: 'productId',
     });
   }
 
@@ -61,8 +58,8 @@ class Order extends Model {
       sequelize,
       tableName: ORDER_TABLE,
       modelName: 'Order',
-      timestamps: false
-    }
+      timestamps: false,
+    };
   }
 }
 

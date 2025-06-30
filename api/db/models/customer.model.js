@@ -2,7 +2,7 @@ const { Model, DataTypes, Sequelize } = require('sequelize');
 
 const { USER_TABLE } = require('./user.model');
 
-const CUSTOMER_TABLE = 'customers';
+const CUSTOMER_TABLE = 'customer';
 
 const CustomerSchema = {
   id: {
@@ -27,7 +27,7 @@ const CustomerSchema = {
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,
-    field: 'create_at',
+    field: 'created_at',
     defaultValue: Sequelize.NOW,
   },
   userId: {
@@ -40,13 +40,13 @@ const CustomerSchema = {
       key: 'id',
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
   },
 };
 
 class Customer extends Model {
   static associate(models) {
-    this.belongsTo(models.User, { as: 'user' });
+    this.belongsTo(models.User, { as: 'User', foreignKey: 'user_id' });
     this.hasMany(models.Order, {
       as: 'orders',
       foreignKey: 'customerId',

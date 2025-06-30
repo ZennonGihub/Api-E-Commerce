@@ -10,7 +10,7 @@ const UserSchema = {
     type: DataTypes.INTEGER,
   },
   name: {
-    type: String,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   email: {
