@@ -1,5 +1,4 @@
 const express = require('express');
-const passport = require('passport');
 
 const articulosRouter = require('./articulos.router');
 const carritoDeCompras = require('./carritoDeCompras.router');
@@ -12,9 +11,9 @@ const authRouter = require('./auth.router');
 function routerApi(app) {
   const router = express.Router();
   app.use('/api/v1', router);
-  router.use('/articulos', articulosRouter);
+  router.use('/products', articulosRouter);
   router.use('/carro', carritoDeCompras);
-  router.use('/usuarios', usuarioRouter);
+  router.use('/users', usuarioRouter);
   router.use('/customer', customeRouter);
   router.use('/categories', categoriesRouter);
   router.use('/order', orderRouter);

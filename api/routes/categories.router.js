@@ -7,7 +7,7 @@ const {
   getCategorySchema,
 } = require('../schemas/category.schema');
 const boom = require('@hapi/boom');
-const { jwtStrategy } = require('./../util/auth/strategies/jwt.strategy');
+const jwtStrategy = require('./../util/auth/strategies/jwt.strategy');
 const passport = require('passport');
 
 const router = express.Router();
@@ -33,12 +33,12 @@ router.get(
     } catch (error) {
       next(error);
     }
-  },
+  }
 );
 
 router.post(
   '/',
-  passport.authenticate('local', { session: false }),
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(createCategorySchema, 'body'),
   async (req, res, next) => {
     try {
@@ -48,7 +48,7 @@ router.post(
     } catch (error) {
       next(error);
     }
-  },
+  }
 );
 
 router.put(
@@ -64,7 +64,7 @@ router.put(
     } catch (error) {
       next(error);
     }
-  },
+  }
 );
 
 router.delete(
@@ -78,7 +78,7 @@ router.delete(
     } catch (error) {
       next(error);
     }
-  },
+  }
 );
 
 module.exports = router;
