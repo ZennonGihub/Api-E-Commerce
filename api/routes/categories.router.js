@@ -1,29 +1,36 @@
 const express = require('express');
 const Category = require('../services/categories.services');
 const validatorHandler = require('../middlewares/validator.handler');
+const { checkRoles } = require('../middlewares/auth.handler');
 const {
   createCategorySchema,
   updateCategorySchema,
   getCategorySchema,
 } = require('../schemas/category.schema');
 const boom = require('@hapi/boom');
-const { jwtStrategy } = require('./../util/auth/strategies/jwt.strategy');
 const passport = require('passport');
 
 const router = express.Router();
 const service = new Category();
 
-router.get('/', async (req, res, next) => {
-  try {
-    const categories = await service.find();
-    res.json(categories);
-  } catch (error) {
-    next(error);
-  }
-});
+router.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  checkRoles(['admin', 'seller']),
+  async (req, res, next) => {
+    try {
+      const categories = await service.find();
+      res.json(categories);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 router.get(
   '/:id',
+  passport.authenticate('jwt', { session: false }),
+  checkRoles(['admin', 'customer', 'seller']),
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
     try {
@@ -38,7 +45,8 @@ router.get(
 
 router.post(
   '/',
-  passport.authenticate('local', { session: false }),
+  passport.authenticate('jwt', { session: false }),
+  checkRoles(['admin', 'seller']),
   validatorHandler(createCategorySchema, 'body'),
   async (req, res, next) => {
     try {
@@ -53,6 +61,8 @@ router.post(
 
 router.put(
   '/',
+  passport.authenticate('jwt', { session: false }),
+  checkRoles(['admin', 'seller']),
   validatorHandler(updateCategorySchema, 'body'),
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
@@ -69,6 +79,8 @@ router.put(
 
 router.delete(
   '/:id',
+  passport.authenticate('jwt', { session: false }),
+  checkRoles(['admin', 'seller']),
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
     try {
