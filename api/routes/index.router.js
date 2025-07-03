@@ -16,11 +16,7 @@ function routerApi(app) {
   router.use('/carro', carritoDeCompras);
   router.use('/usuarios', usuarioRouter);
   router.use('/customer', customeRouter);
-  router.use(
-    '/categories',
-    passport.authenticate('jwt', { session: false }),
-    categoriesRouter,
-  );
+  router.use('/categories', categoriesRouter);
   router.use('/order', orderRouter);
   router.use('/auth', authRouter);
 }

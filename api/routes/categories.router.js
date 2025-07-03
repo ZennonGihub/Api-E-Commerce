@@ -15,8 +15,8 @@ const service = new Category();
 
 router.get(
   '/',
-  passport.authenticate('jwt', { session: false }),
-  checkRoles(['admin', 'seller']),
+  passport.authenticate('local', { session: false }),
+  checkRoles('admin', 'seller'),
   async (req, res, next) => {
     try {
       const categories = await service.find();
@@ -29,8 +29,8 @@ router.get(
 
 router.get(
   '/:id',
-  passport.authenticate('jwt', { session: false }),
-  checkRoles(['admin', 'customer', 'seller']),
+  passport.authenticate('local', { session: false }),
+  checkRoles('admin', 'customer', 'seller'),
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
     try {
@@ -45,8 +45,8 @@ router.get(
 
 router.post(
   '/',
-  passport.authenticate('jwt', { session: false }),
-  checkRoles(['admin', 'seller']),
+  passport.authenticate('local', { session: false }),
+  checkRoles('admin', 'seller'),
   validatorHandler(createCategorySchema, 'body'),
   async (req, res, next) => {
     try {
@@ -61,8 +61,8 @@ router.post(
 
 router.put(
   '/',
-  passport.authenticate('jwt', { session: false }),
-  checkRoles(['admin', 'seller']),
+  passport.authenticate('local', { session: false }),
+  checkRoles('admin', 'seller'),
   validatorHandler(updateCategorySchema, 'body'),
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
@@ -79,8 +79,8 @@ router.put(
 
 router.delete(
   '/:id',
-  passport.authenticate('jwt', { session: false }),
-  checkRoles(['admin', 'seller']),
+  passport.authenticate('local', { session: false }),
+  checkRoles('admin', 'seller'),
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
     try {
