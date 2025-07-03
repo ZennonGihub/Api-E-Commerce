@@ -8,7 +8,7 @@ const service = new OrderService();
 
 router.get(
   '/my-orders',
-  passport.authenticate('local', { session: false }),
+  passport.authenticate('jwt', { session: false }),
   async (req, res, next) => {
     try {
       const user = req.user;
