@@ -46,6 +46,7 @@ class User extends Model {
     this.hasOne(models.Customer, {
       as: 'customer',
       foreignKey: 'userId',
+      onDelete: 'CASCADE',
     });
   }
 
