@@ -13,24 +13,17 @@ const passport = require('passport');
 const router = express.Router();
 const service = new Category();
 
-router.get(
-  '/',
-  passport.authenticate('jwt', { session: false }),
-  checkRoles('admin', 'seller'),
-  async (req, res, next) => {
-    try {
-      const categories = await service.find();
-      res.json(categories);
-    } catch (error) {
-      next(error);
-    }
-  },
-);
+router.get('/', async (req, res, next) => {
+  try {
+    const categories = await service.find();
+    res.json(categories);
+  } catch (error) {
+    next(error);
+  }
+});
 
 router.get(
   '/:id',
-  passport.authenticate('jwt', { session: false }),
-  checkRoles('admin', 'customer', 'seller'),
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
     try {
@@ -59,7 +52,7 @@ router.post(
   },
 );
 
-router.put(
+router.patch(
   '/',
   passport.authenticate('jwt', { session: false }),
   checkRoles('admin', 'seller'),
