@@ -13,6 +13,7 @@ const config = {
   jwtRefreshToken: process.env.REFRESH_TOKEN_SECRET,
   emailPassword: process.env.EMAIL_PASSWORD,
   emailUser: process.env.USER_EMAIL,
+  jwtRecovery: process.env.JWT_RECOVERY,
 };
 
 module.exports = { config };

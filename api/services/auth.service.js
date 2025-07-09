@@ -26,21 +26,55 @@ class AuthService {
       sub: user.id,
       role: user.role,
     };
-    const accesToken = jwt.sign(payload, config.jwtSecret, {
+    const accessToken = jwt.sign(payload, config.jwtSecret, {
       expiresIn: '15m',
     });
 
     const refreshToken = jwt.sign(payload, config.jwtRefreshToken, {
       expiresIn: '1d',
     });
-    return { accesToken, refreshToken };
+    return { accessToken, refreshToken };
   }
 
-  async sendMail(email) {
+  async sendRecoveryPassword(email) {
     const user = await service.findByEmail(email);
     if (!user) {
       throw boom.unauthorized();
     }
+    const payload = { sub: user.id };
+    const recoveryTokenPassword = jwt.sign(payload, config.jwtRecovery, {
+      expiresIn: '15m',
+    });
+    const link = `http://frontend.com/recovery?token=${recoveryTokenPassword}`;
+    await service.update(user.id, { recoveryToken: recoveryTokenPassword });
+    const mail = {
+      from: config.emailUser,
+      to: `${user.email}`,
+      subject: 'Email para recuperar contraseña',
+      text: `<b>Ingresa a este link para recuperar tu contraseña => ${link}</b>`,
+    };
+    const rta = await this.sendMail(mail);
+    return rta;
+  }
+
+  async changePassword(token, newPassword) {
+    try {
+      const payload = jwt.verify(token, config.jwtRecovery);
+      console.log(payload, token);
+      const user = await service.findOne(payload.sub);
+      console.log(user.recoveryToken, payload.token);
+      if (user.recoveryToken !== token) {
+        throw boom.unauthorized(`No estas autorizado`);
+      }
+      const hash = await bcrypt.hash(newPassword, 10);
+      await service.update(user.id, { recoveryToken: null, password: hash });
+      return { message: 'La contraseña fue cambiada con exito' };
+    } catch (error) {
+      throw boom.unauthorized(`No estas autorizado`);
+    }
+  }
+
+  async sendMail(infoMail) {
     let transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       secure: true,
@@ -50,13 +84,7 @@ class AuthService {
         pass: config.emailPassword,
       },
     });
-    await transporter.sendMail({
-      from: config.emailUser,
-      to: `${user.email}`,
-      subject: 'Nuevo correo',
-      text: 'Este es un nuevo mensaje de pruba de nodeMailer?',
-      html: '<b>Prueba numero 3000 de nodeMailer</b>',
-    });
+    await transporter.sendMail(infoMail);
     return { message: 'Mail sent' };
   }
 }

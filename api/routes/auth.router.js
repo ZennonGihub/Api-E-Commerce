@@ -6,6 +6,7 @@ const boom = require('@hapi/boom');
 const AuthService = require('./../services/auth.service');
 
 const service = new AuthService();
+const router = express();
 
 router.post(
   '/login',
@@ -13,14 +14,14 @@ router.post(
   async (req, res, next) => {
     try {
       const user = req.user;
-      const { accestoken, refreshToken } = await service.generateToken(user);
+      const { accessToken, refreshToken } = await service.generateToken(user);
       res.cookie('jwt', refreshToken, {
         httpOnly: true,
         sameSite: 'strict',
         secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
-      res.json({ accestoken });
+      res.json({ accessToken, refreshToken });
     } catch (error) {
       next(error);
     }
@@ -54,7 +55,15 @@ router.post('/refresh', async (req, res, next) => {
 router.post('/recovery', async (req, res, next) => {
   try {
     const { email } = req.body;
-    const rta = await service.sendMail(email);
+    const rta = await service.sendRecoveryPassword(email);
+    res.json(rta);
+  } catch (error) {}
+});
+
+router.post('/change-password', async (req, res, next) => {
+  try {
+    const { token, newPassword } = req.body;
+    const rta = await service.changePassword(token, newPassword);
     res.json(rta);
   } catch (error) {
     next(error);

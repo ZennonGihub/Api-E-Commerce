@@ -32,7 +32,7 @@ router.get(
     } catch (error) {
       next(error);
     }
-  },
+  }
 );
 
 router.post(
@@ -46,16 +46,7 @@ router.post(
     } catch (err) {
       next(err);
     }
-  },
-);
-
-router.get(
-  '/Login',
-  validatorHandler(getUser, 'body'),
-  async (req, res, next) => {
-    try {
-    } catch (error) {}
-  },
+  }
 );
 
 router.delete(
@@ -69,7 +60,7 @@ router.delete(
     } catch (error) {
       next(error);
     }
-  },
+  }
 );
 
 router.patch(
@@ -88,7 +79,7 @@ router.patch(
     } catch (error) {
       next(error);
     }
-  },
+  }
 );
 
 module.exports = router;
