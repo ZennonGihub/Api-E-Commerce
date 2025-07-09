@@ -30,7 +30,7 @@ const OrderSchema = {
   total: {
     type: DataTypes.VIRTUAL,
     get() {
-      if (this.items.length > 0) {
+      if (this.items && this.items.length > 0) {
         return this.items.reduce((total, item) => {
           return total + item.price * item.OrderProduct.amount;
         }, 0);
@@ -44,6 +44,7 @@ class Order extends Model {
   static associate(models) {
     this.belongsTo(models.Customer, {
       as: 'customer',
+      foreignKey: 'customerId',
     });
     this.belongsToMany(models.Product, {
       as: 'items',

@@ -1,13 +1,13 @@
 const express = require('express');
 const Category = require('../services/categories.services');
 const validatorHandler = require('../middlewares/validator.handler');
+const { checkRoles } = require('../middlewares/auth.handler');
 const {
   createCategorySchema,
   updateCategorySchema,
   getCategorySchema,
 } = require('../schemas/category.schema');
 const boom = require('@hapi/boom');
-const jwtStrategy = require('./../util/auth/strategies/jwt.strategy');
 const passport = require('passport');
 
 const router = express.Router();
@@ -39,6 +39,7 @@ router.get(
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
+  checkRoles('admin', 'seller'),
   validatorHandler(createCategorySchema, 'body'),
   async (req, res, next) => {
     try {
@@ -51,8 +52,10 @@ router.post(
   }
 );
 
-router.put(
+router.patch(
   '/',
+  passport.authenticate('jwt', { session: false }),
+  checkRoles('admin', 'seller'),
   validatorHandler(updateCategorySchema, 'body'),
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
@@ -69,6 +72,8 @@ router.put(
 
 router.delete(
   '/:id',
+  passport.authenticate('jwt', { session: false }),
+  checkRoles('admin', 'seller'),
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
     try {

@@ -10,6 +10,9 @@ const config = {
   dbPort: process.env.DB_PORT || 5432,
   apiKey: process.env.API_KEY,
   jwtSecret: process.env.JWT_SECRET,
+  jwtRefreshToken: process.env.REFRESH_TOKEN_SECRET,
+  emailPassword: process.env.EMAIL_PASSWORD,
+  emailUser: process.env.USER_EMAIL,
 };
 
 module.exports = { config };
