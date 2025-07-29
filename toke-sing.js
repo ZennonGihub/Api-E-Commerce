@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+/* const jwt = require('jsonwebtoken');
 
 const secret = 'soto';
 const payload = {
@@ -12,3 +12,4 @@ function signToken(payload, secret) {
 
 const token = signToken(payload, secret);
 console.log(token);
+*/

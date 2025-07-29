@@ -60,9 +60,7 @@ class AuthService {
   async changePassword(token, newPassword) {
     try {
       const payload = jwt.verify(token, config.jwtRecovery);
-      console.log(payload, token);
       const user = await service.findOne(payload.sub);
-      console.log(user.recoveryToken, payload.token);
       if (user.recoveryToken !== token) {
         throw boom.unauthorized(`No estas autorizado`);
       }

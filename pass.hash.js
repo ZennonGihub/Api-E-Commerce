@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+/*const bcrypt = require('bcrypt')
 
 async function hashPassword( ) {
   const miPassword = 'Tito Soto el enfasis'
@@ -6,4 +6,4 @@ async function hashPassword( ) {
   console.log(hash)
 }
 
-hashPassword();
+hashPassword(); */

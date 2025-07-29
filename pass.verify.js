@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+/*const bcrypt = require('bcrypt')
 
 async function hashVerify( ) {
   const hash = '$2b$10$rztxhyiKtj4sD7oKlUFfaenKiK0rotlamM/X6wqZ0JZzg3qPzomHS'
@@ -7,4 +7,4 @@ async function hashVerify( ) {
   console.log(match)
 }
 
-hashVerify();
+hashVerify(); */

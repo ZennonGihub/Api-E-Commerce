@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: API E-commerce
+  description: Documentación de la API para la tienda en línea. Aquí encontrarás todos los endpoints disponibles para gestionar productos, usuarios, órdenes y más.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Servidor de desarrollo
+
+tags:
+  - name: Products
+    description: Operaciones relacionadas con los productos de la tienda.
+  - name: Users
+    description: Operaciones para gestionar usuarios.
+
+paths:
+  /products:
+    get:
+      tags:
+        - Products
+      summary: Obtener todos los productos
+      description: Retorna una lista de todos los productos disponibles en la tienda, con opción de paginación.
+      responses:
+        "200":
+          description: OK. Operación exitosa.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+  /products/{id}:
+    get:
+      tags:
+        - Products
+      summary: Obtener un producto por su ID
+      description: Retorna los detalles de un producto específico.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID numérico del producto a obtener.
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK. Producto encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: Producto no encontrado.
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Teclado Mecánico"
+        price:
+          type: number
+          format: float
+          example: 75.99
+        description:
+          type: string
+          example: "Teclado mecánico con switches rojos."
+        image:
+          type: string
+          format: uri
+          example: "http://example.com/image.jpg"
+        category:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: "Tecnología"

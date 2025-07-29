@@ -1,4 +1,4 @@
-const { Pool } = require('pg');
+/* const { Pool } = require('pg');
 
 const pool = new Pool({
   host: 'localhost',
@@ -15,4 +15,4 @@ pool.query('SELECT 1', (err, res) => {
     console.log('✅ Conexión exitosa a PostgreSQL');
   }
   pool.end();
-});
+});*/

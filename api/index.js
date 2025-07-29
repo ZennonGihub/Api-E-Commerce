@@ -3,6 +3,9 @@ const routerApi = require('./routes/index.router');
 const cors = require('cors');
 const { checkApiKey } = require('./middlewares/auth.handler');
 const cookieParser = require('cookie-parser');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('openapi.yaml');
 
 const {
   logErrors,
@@ -36,6 +39,7 @@ app.get('/api', checkApiKey, (req, res) => {
 });
 
 routerApi(app);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(logErrors);
 app.use(ormErrorHandler);
