@@ -8,9 +8,7 @@ Características
 
 **Organización por categorías**: Funcionalidad para categorizar productos y facilitar la navegación.
 
-**Autenticación y autorización**: Seguridad robusta para usuarios y administradores utilizando JWT y Passport, garantizando que las acciones se realicen con los permisos correctos.
-
-**Manejo de pedidos**: Ciclo de vida completo de un pedido, desde la creación hasta su finalización.
+**Autenticación y autorización**: Seguridad robusta para usuarios y administradores utilizando JWT y Passport, garantizando que las acciones se realicen con los permisos correctos.s
 
 **Validación de datos**: Implementación de Joi para asegurar la integridad de los datos en todas las peticiones.
 
