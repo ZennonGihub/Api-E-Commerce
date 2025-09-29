@@ -14,13 +14,6 @@ Características
 
 **Generación de datos de prueba**: Incluye un seeder para poblar la base de datos con datos de ejemplo para pruebas rápidas.
 
-- **Node.js y Express:** Para la creación del servidor y las rutas de la API.
-- **PostgreSQL:** Como base de datos relacional para almacenar la información.
-- **Sequelize:** ORM para gestionar la base de datos de una forma mas eficiente.
-- **Joi:** Para la validación de datos de entrada y asegurar la integridad de la información.
-- **JSON Web Token (JWT):** Para la autenticación y seguridad de los endpoints.
-- **Boom:** Para el manejo y formato de errores HTTP de manera estandarizada y clara.
-
 Tecnologías utilizadas
 
 **Backend**: Node.js, Express.js
