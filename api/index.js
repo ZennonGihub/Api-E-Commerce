@@ -45,8 +45,3 @@ app.use(logErrors);
 app.use(ormErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
-
-//Tenemos que hacer que el sv 'escuche'
-app.listen(port, () => {
-  console.log('Mi puerto es:' + port);
-});
