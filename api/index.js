@@ -1,7 +1,7 @@
 const express = require('express');
-const routerApi = require('./routes/index.router');
+const routerApi = require('../routes/index.router');
 const cors = require('cors');
-const { checkApiKey } = require('./middlewares/auth.handler');
+const { checkApiKey } = require('../middlewares/auth.handler');
 const cookieParser = require('cookie-parser');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
@@ -12,7 +12,7 @@ const {
   errorHandler,
   boomErrorHandler,
   ormErrorHandler,
-} = require('./middlewares/error.handler');
+} = require('../middlewares/error.handler');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -32,7 +32,7 @@ const options = {
 };
 
 app.use(cors(options));
-require('./util/auth/index');
+require('../util/auth/index');
 
 app.get('/api', checkApiKey, (req, res) => {
   res.send('Esta funcionando');
