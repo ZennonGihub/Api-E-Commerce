@@ -2,11 +2,15 @@ const Sequelize = require('sequelize');
 const { config } = require('../config/config');
 const setupModels = require('../db/models/index');
 
-console.log('CONFIG:', config);
+const URI = config.url;
 
-const USER = encodeURIComponent(config.DbUser);
-const PASSWORD = encodeURIComponent(config.dbPassword);
-const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
+if (!URI) {
+  console.error(`Variable URI NO definida`);
+}
+console.log('CONEXION DB (sequelize)', URI);
+
+//const USER = encodeURIComponent(config.DbUser);
+//const PASSWORD = encodeURIComponent(config.dbPassword);
 
 const sequelize = new Sequelize(URI, {
   dialect: 'postgres',

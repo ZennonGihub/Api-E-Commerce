@@ -2,11 +2,12 @@ const { Pool } = require('pg');
 const { config } = require('../config/').config;
 require('dotenv').config();
 
-console.log('CONFIG:', config);
+const URI = config.url;
 
-const USER = encodeURIComponent(config.DbUser);
-const PASSWORD = encodeURIComponent(config.dbPassword);
-const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`
+if (!URI) {
+  console.error(`Variable URI NO definida`);
+}
+console.log('CONEXION DB (postgres.pool)', URI);
 
 const pool = new Pool({ connectionString: URI });
 
