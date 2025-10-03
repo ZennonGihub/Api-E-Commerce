@@ -1,4 +1,4 @@
-const UserService = require('./../services/usuarios.services');
+const UserService = require('./usuarios.services');
 const boom = require('@hapi/boom');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
