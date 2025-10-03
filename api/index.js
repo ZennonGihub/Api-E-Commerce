@@ -20,7 +20,10 @@ app.use(cookieParser());
 
 app.use(express.json());
 
-const whitelist = ['http://127.0.0.1:5500'];
+const whitelist = [
+  'http://127.0.0.1:5500',
+  'https://api-e-commerce-livid.vercel.app/',
+];
 const options = {
   origin: (origin, callback) => {
     if (whitelist.includes(origin) || !origin) {
@@ -34,8 +37,8 @@ const options = {
 app.use(cors(options));
 require('./../src/util/index');
 
-app.get('/api', checkApiKey, (req, res) => {
-  res.send('Esta funcionando');
+app.get('/', checkApiKey, (req, res) => {
+  res.send('Api funcionando de manera exitosa');
 });
 
 routerApi(app);
