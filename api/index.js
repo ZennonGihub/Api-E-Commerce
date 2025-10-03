@@ -45,3 +45,5 @@ app.use(logErrors);
 app.use(ormErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
+
+module.exports = app;
