@@ -33,7 +33,7 @@ const options = {
     }
   },
 };
-
+app.use(checkApiKey);
 app.use(cors(options));
 require('./../src/util/index');
 
@@ -44,7 +44,7 @@ app.get('/', (req, res) => {
 
 routerApi(app);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use(checkApiKey);
+
 app.use(logErrors);
 app.use(ormErrorHandler);
 app.use(boomErrorHandler);
