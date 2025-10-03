@@ -37,14 +37,14 @@ const options = {
 app.use(cors(options));
 require('./../src/util/index');
 
-app.get('/', checkApiKey, (req, res) => {
+app.get('/', (req, res) => {
   res.send('Api funcionando de manera exitosa');
   console.log('Log de checkApi', checkApiKey);
 });
 
 routerApi(app);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
+app.use(checkApiKey);
 app.use(logErrors);
 app.use(ormErrorHandler);
 app.use(boomErrorHandler);
