@@ -39,6 +39,7 @@ require('./../src/util/index');
 
 app.get('/', checkApiKey, (req, res) => {
   res.send('Api funcionando de manera exitosa');
+  console.log('Log de checkApi', checkApiKey);
 });
 
 routerApi(app);
