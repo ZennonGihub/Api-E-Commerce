@@ -43,11 +43,10 @@ app.get('/', (req, res) => {
 });
 
 routerApi(app);
-app.use(checkApiKey);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(logErrors);
 app.use(ormErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
-
+app.use(checkApiKey);
 module.exports = app;
