@@ -63,6 +63,7 @@ class OrderProduct extends Model {
       sequelize,
       tableName: ORDER_PRODUCT_TABLE,
       modelName: 'OrderProduct',
+      schema: 'public',
       timestamps: false,
     };
   }

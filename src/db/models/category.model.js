@@ -39,6 +39,7 @@ class Category extends Model {
       sequelize,
       tableName: CATEGORY_TABLE,
       modelName: 'Category',
+      schema: 'public',
       timestamps: false,
     };
   }

@@ -59,6 +59,7 @@ class Order extends Model {
       sequelize,
       tableName: ORDER_TABLE,
       modelName: 'Order',
+      schema: 'public',
       timestamps: false,
     };
   }

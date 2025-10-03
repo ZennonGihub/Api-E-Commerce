@@ -59,6 +59,7 @@ class Product extends Model {
       sequelize,
       tableName: PRODUCT_TABLE,
       modelName: 'Product',
+      schema: 'public',
       timestamps: false,
     };
   }

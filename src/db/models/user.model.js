@@ -61,6 +61,7 @@ class User extends Model {
       tableName: USER_TABLE,
       modelName: 'User',
       timestamps: false,
+      schema: 'public',
     };
   }
 }
