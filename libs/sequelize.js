@@ -1,11 +1,13 @@
 const Sequelize = require('sequelize');
 const { config } = require('../config/config');
 const setupModels = require('../db/models/index');
+require('pg');
+require('pg-hstore');
 
 const URI = config.url;
 
 if (!URI) {
-  console.error(`Variable URI NO definida`);
+  throw new Error(`Variable URI NO definida`);
 }
 console.log('CONEXION DB (sequelize)', URI);
 
@@ -15,6 +17,12 @@ console.log('CONEXION DB (sequelize)', URI);
 const sequelize = new Sequelize(URI, {
   dialect: 'postgres',
   logging: false,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
 });
 
 setupModels(sequelize);
