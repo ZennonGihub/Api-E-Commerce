@@ -12,8 +12,9 @@ const profileRouter = require('./profile.router');
 
 function routerApi(app) {
   const router = express.Router();
+  router.use(checkApiKey);
+
   app.use('/api/v1', router);
-  app.use(checkApiKey);
 
   router.use('/products', articulosRouter);
   router.use('/carro', carritoDeCompras);
