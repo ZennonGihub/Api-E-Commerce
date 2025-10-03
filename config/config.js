@@ -11,10 +11,16 @@ const config = {
   apiKey: process.env.API_KEY,
   jwtSecret: process.env.JWT_SECRET,
   url: process.env.URL_DB,
+  pgHost: process.env.PGHOST,
+  pgDatabase: process.env.PGDATABASE,
+  pgUser: process.env.PGUSER,
+  pgPassword: process.env.PGPASSWORD,
   jwtRefreshToken: process.env.REFRESH_TOKEN_SECRET,
   emailPassword: process.env.EMAIL_PASSWORD,
   emailUser: process.env.USER_EMAIL,
   jwtRecovery: process.env.JWT_RECOVERY,
 };
+
+console.log(config);
 
 module.exports = { config };
