@@ -1,5 +1,6 @@
 const express = require('express');
 
+const { checkApiKey } = require('./../middlewares/auth.handler');
 const articulosRouter = require('./articulos.router');
 const carritoDeCompras = require('./carritoDeCompras.router');
 const usuarioRouter = require('./usuarios.router');
@@ -11,6 +12,8 @@ const profileRouter = require('./profile.router');
 
 function routerApi(app) {
   const router = express.Router();
+
+  app.use(checkApiKey);
   app.use('/api/v1', router);
   router.use('/products', articulosRouter);
   router.use('/carro', carritoDeCompras);
