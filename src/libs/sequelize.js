@@ -17,6 +17,7 @@ console.log('CONEXION DB (sequelize)', URI);
 const sequelize = new Sequelize(URI, {
   dialect: 'postgres',
   logging: false,
+  schema: 'public',
   dialectOptions: {
     ssl: {
       require: true,
