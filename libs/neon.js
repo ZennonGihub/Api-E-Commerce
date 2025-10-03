@@ -3,17 +3,17 @@ require('dotenv').config();
 const { Pool } = require('pg');
 
 const {
-  PGHOST,
-  PGDATABASE,
-  PGUSER,
-  PGPASSWORD,
+  pgHost,
+  pgDatabase,
+  pgUser,
+  pgPassword,
 } = require('./../config/config');
 
 const pool = new Pool({
-  host: PGHOST,
-  database: PGDATABASE,
-  username: PGUSER,
-  password: PGPASSWORD,
+  host: pgHost,
+  database: pgDatabase,
+  username: pgUser,
+  password: pgPassword,
   port: 5432,
   ssl: {
     require: true,
