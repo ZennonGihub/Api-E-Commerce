@@ -36,7 +36,7 @@ const options = {
 app.use(cors(options));
 require('./../src/util/index');
 
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Api funcionando de manera exitosa');
 });
 
