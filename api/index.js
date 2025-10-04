@@ -40,7 +40,7 @@ app.get('/api', (req, res) => {
   res.send('Api funcionando de manera exitosa');
 });
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 routerApi(app);
 app.use(logErrors);
