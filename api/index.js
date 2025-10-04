@@ -5,7 +5,7 @@ const { checkApiKey } = require('./../src/middlewares/auth.handler');
 const cookieParser = require('cookie-parser');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./../openapi.yaml');
+const swaggerDocument = YAML.load('./openapi.yaml');
 
 const {
   logErrors,
@@ -15,7 +15,6 @@ const {
 } = require('./../src/middlewares/error.handler');
 
 const app = express();
-
 app.use(cookieParser());
 
 app.use(express.json());
