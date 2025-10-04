@@ -22,7 +22,7 @@ app.use(express.json());
 
 const whitelist = [
   'http://127.0.0.1:5500',
-  'https://api-e-commerce-livid.vercel.app/',
+  'https://api-e-commerce-livid.vercel.app',
 ];
 const options = {
   origin: (origin, callback) => {
@@ -37,12 +37,12 @@ const options = {
 app.use(cors(options));
 require('./../src/util/index');
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('Api funcionando de manera exitosa');
-  console.log('Log de checkApi', checkApiKey);
 });
 
-app.use('/api-docs/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 routerApi(app);
 app.use(logErrors);
 app.use(ormErrorHandler);
