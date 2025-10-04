@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
   console.log('Log de checkApi', checkApiKey);
 });
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 routerApi(app);
 app.use(logErrors);
 app.use(ormErrorHandler);
